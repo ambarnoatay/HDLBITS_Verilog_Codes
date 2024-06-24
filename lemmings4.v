@@ -88,34 +88,3 @@ endmodule
 
 
 
-module testb();
-reg clk,areset,bl,br,gnd,dig;
-wire wl,wr,aa,dg;
-top_module dut(clk,areset,bl,br,gnd,dig,wl,wr,aa,dg);
-initial begin
-	clk = 1'b0;bl = 1'b0; br = 1'b0; gnd = 1'b1;dig=1'b0;
-	#10 areset = 1'b1;
-	#10 areset = 1'b0;
-	#20 bl = 1'b1;
-       	#20 bl = 1'b0;	
-	#20 br = 1'b1;
-	#10 br = 1'b0;
-	#40 gnd = 1'b0;
-	#30 gnd = 1'b1;
-	#10 dig = 1'b0;
-	#20 gnd = 1'b0;
-	#300 gnd = 1'b1;
-	#50 $finish;
-end
-always #5 clk = ~clk;
-initial begin
-    $monitor("areset=%b clk=%b wl=%b wr=%b aa=%b ",areset,clk,wl,wr,aa);
-end
-initial begin
-    $dumpfile("lemmings4.vcd");
-    $dumpvars(0,testb);
-
-end
-
-
-endmodule
